@@ -5,11 +5,10 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <script type="text/javascript"   th:src="@{/js/jquery-3.2.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/util.js}"></script>
-    <link rel="stylesheet"  type="text/css" th:href="@{/css/layui.css}" media="all">
     <title>Title</title>
 </head>
 <body>
-<pre class="json-result layui-code" th:text="${result}">
+<pre class="json-result" th:text="${result}">
     //在里面存放任意的代码
 </pre>
 
@@ -18,6 +17,8 @@
 <span class="real-name label label-info"></span>
 <span class="id-card label label-info"></span>
 <span class="card-no label label-info"></span>
+<span class="phone label label-info"></span>
+
 </body>
 <script>
 $(function () {
@@ -25,10 +26,12 @@ $(function () {
         $('.real-name').text(util.getName());
         $('.id-card').text(util.getIdNo());
         $('.card-no').text(util.getBankCardNo());
+        $('.phone').text(util.getMobile());
         var info = {
             realName: $('.real-name').text(),
             idCard: $('.id-card').text(),
-            cardNo : $('.card-no').text()
+            cardNo : $('.card-no').text(),
+            phone:$('.phone').text()
         };
         var json = JSON.stringify(info,null,"\t");
         $('.json-result').text(json);

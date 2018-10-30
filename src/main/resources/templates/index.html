@@ -2,14 +2,46 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript"   th:src="@{/js/jquery-3.2.1.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/util.js}"></script>
-    <script type="text/javascript" th:src="@{/js/layui.js}"></script>
-    <link rel="stylesheet"  type="text/css" th:href="@{/css/layui.css}" media="all">
-    <title>测试Demo</title>
+    <title>测试首页</title>
 </head>
 <body>
-<iframe th:replace="menu.html"  frameborder="0" id="demoAdmin" style="width: 100%; height: 300px;"></iframe>
-
+<div>
+    <input class="open-request-host" placeholder="开户绑卡请求地址" value="http://10.10.10.185:9008/dep-page-service/cg1056"> <br>
+    回调通知地址<input class="open-call-back-url" value="" placeholder="成功回调通知地址"><br>
+    注册手机号<input class="open-register-phone" placeholder="客户注册手机号"><br>
+    成功跳转地址<input class="open-response-path" placeholder="成功跳转地址"><br>
+    商户号<input class="open-merchant-no" placeholder="商户号"><br>
+    <button class="btn-openbind">提交</button>
+    <pre class="req-msg"></pre>
+</div>
 </body>
+<script>
+    $(function () {
+        $('.btn-openbind').click(function () {
+            var params = {
+                callbackUrl: $('.open-call-back-url').val(),
+                responsePath: $('.open-response-path').val(),
+                registerPhone: $('.open-register-phone').val(),
+                merchantNo:$('.open-merchant-no').val(),
+                custType: '00'
+            };
+            $.ajax({
+                type:'POST',
+                url:'/cg1044',
+                data:params,
+                success:function (result) {
+                    console.log(result);
+                    $('.req-msg').text(JSON.stringify(result.data,null,'\t'));
+                },
+                dataType:'json'
+            });
+        });
+
+
+
+    });
+</script>
 </html>
