@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <title>开户绑卡(cg1044)</title>
+</head>
+<body>
+<div class="container">
+    <table  class="table  text-center" width="50%">
+        <tr>
+            <td colspan="4">
+                <strong>开户绑卡(CG1044)</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>请求地址</td>
+            <td colspan="2">
+                <input class=" form-control" placeholder="请求地址">
+            </td>
+            <td>
+                <span>/dep-page-service/cg1044</span>
+            </td>
+        </tr>
+        <tr>
+            <td>商户号</td>
+            <td colspan="2">
+                <input class="open-merchant-no form-control" placeholder="商户号">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>注册手机号(registerPhone)</td>
+            <td colspan="2">
+                <input class="open-register-phone form-control" placeholder="注册手机号registerPhone">
+            </td>
+            <td>
+                <button class="btn-random-phone btn btn-success">生成</button>
+            </td>
+        </tr>
+        <tr>
+            <td>回调地址(callbackUrl)</td>
+            <td colspan="2">
+                <input class="open-call-back-url form-control" placeholder="回调地址callbackUrl">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>跳转地址(responsePath)</td>
+            <td colspan="2">
+                <input class="open-response-path form-control" placeholder="跳转地址responsePath">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td class="4">
+                <button class="btn-openbind btn btn-info">提交</button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td><strong>请求报文</strong></td>
+            <td colspan="3">
+                <pre class="req-msg">
+
+
+
+
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>响应报文</strong></td>
+            <td colspan="3">
+                <pre>
+
+                    通过callbackUrl将响应信息写入固定json ,时刻请求
+
+
+                </pre>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+<script>
+    $(function () {
+        $('.btn-random-phone').click(function () {
+            var randomPhone = util.getMobile();
+            $('.open-register-phone').val(randomPhone);
+        });
+        //提交开户绑卡信息
+        $('.btn-openbind').click(function () {
+            var params = {
+                callbackUrl: $('.open-call-back-url').val(),
+                responsePath: $('.open-response-path').val(),
+                registerPhone: $('.open-register-phone').val(),
+                merchantNo:$('.open-merchant-no').val(),
+                custType: '00'
+            };
+            $.ajax({
+                type:'POST',
+                url:'/cg1044',
+                data:params,
+                success:function (result) {
+                    console.log(result);
+                    $('.req-msg').text(JSON.stringify(result.data,null,'\t'));
+                },
+                dataType:'json'
+            });
+        });
+
+
+
+    });
+</script>
+</html>

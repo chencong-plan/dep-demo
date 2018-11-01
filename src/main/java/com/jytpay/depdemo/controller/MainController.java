@@ -1,34 +1,30 @@
 package com.jytpay.depdemo.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class MainController {
 
 
-    @RequestMapping("/test")
-    public String index(Model model){
-        List<String> list = new ArrayList<>();
-        list.add("chencong");
-        list.add("22");
-        Map<String,String> map = new HashMap<>();
-        map.put("amount","12.1");
-        map.put("list",list.toString());
-        String result  = JSON.toJSONString(map,true);
-        model.addAttribute("result",result);
-        return "test";
+    @RequestMapping("/index")
+    public String index(){
+        //TODO 将接口信息放入json传入index中
+        return "index";
     }
 
-    @RequestMapping("/index")
-    public String home(){
-        return "index";
+    @RequestMapping("/cg1044/view")
+    public String openCard(){
+        return "openCard";
+    }
+
+    @RequestMapping("/cg1056/view")
+    public String replaceCard(){
+        return "replaceCard";
+    }
+
+    @RequestMapping("/cg1057/view")
+    public String unbind(){
+        return "unbindCard";
     }
 }
