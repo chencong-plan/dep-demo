@@ -8,18 +8,93 @@
     <title>测试首页</title>
 </head>
 <body>
-<div>
-    <input class="open-request-host" placeholder="开户绑卡请求地址" value="http://10.10.10.185:9008/dep-page-service/cg1056"> <br>
-    回调通知地址<input class="open-call-back-url" value="" placeholder="成功回调通知地址"><br>
-    注册手机号<input class="open-register-phone" placeholder="客户注册手机号"><br>
-    成功跳转地址<input class="open-response-path" placeholder="成功跳转地址"><br>
-    商户号<input class="open-merchant-no" placeholder="商户号"><br>
-    <button class="btn-openbind">提交</button>
-    <pre class="req-msg"></pre>
+<div class="container">
+    <table  class="table  text-center" width="50%">
+        <tr>
+            <td colspan="4">
+                <strong>开户绑卡(CG1044)</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>请求地址</td>
+            <td colspan="2">
+                <input class=" form-control" placeholder="请求地址">
+            </td>
+            <td>
+                <span>/dep-page-service/cg1044</span>
+            </td>
+        </tr>
+        <tr>
+            <td>商户号</td>
+            <td colspan="2">
+                <input class="open-merchant-no form-control" placeholder="商户号">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>注册手机号(registerPhone)</td>
+            <td colspan="2">
+                <input class="open-register-phone form-control" placeholder="注册手机号registerPhone">
+            </td>
+            <td>
+                <button class="btn-random-phone btn btn-success">生成</button>
+            </td>
+        </tr>
+        <tr>
+            <td>回调地址(callbackUrl)</td>
+            <td colspan="2">
+                <input class="open-call-back-url form-control" placeholder="回调地址callbackUrl">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>跳转地址(responsePath)</td>
+            <td colspan="2">
+                <input class="open-response-path form-control" placeholder="跳转地址responsePath">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td class="4">
+                <button class="btn-openbind btn btn-info">提交</button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td><strong>请求报文</strong></td>
+            <td colspan="3">
+                <pre class="req-msg">
+
+
+
+
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>响应报文</strong></td>
+            <td colspan="3">
+                <pre>
+
+                    通过callbackUrl将响应信息写入固定json ,时刻请求
+
+
+                </pre>
+            </td>
+        </tr>
+    </table>
+
 </div>
 </body>
 <script>
     $(function () {
+        $('.btn-random-phone').click(function () {
+            var randomPhone = util.getMobile();
+            $('.open-register-phone').val(randomPhone);
+        });
+        //提交开户绑卡信息
         $('.btn-openbind').click(function () {
             var params = {
                 callbackUrl: $('.open-call-back-url').val(),
