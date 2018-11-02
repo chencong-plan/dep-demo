@@ -93,5 +93,31 @@ var util = {
             prefix = prefix + Math.floor(Math.random() * 10);
         }
         return prefix;
+    },
+    /**
+     * 组装表单请求，发送post到url
+     * @param data
+     * @param url
+     */
+    doPost:function (element,data, url) {
+        var form = "<form action='' class='form-post' method='post' target='_blank'>\n" +
+            "        <input name='merchantNo' class='form-merchant-no'/>\n" +
+            "        <input name='merOrderNo' class='form-mer-order-no'/>\n" +
+            "        <input name='jsonEnc' class='form-json-enc'/>\n" +
+            "        <input name='keyEnc' class='form-key-enc'/>\n" +
+            "        <input name='sign' class='form-sign'/>\n" +
+            "    </form>";
+        element.html(form);
+        var merchantNo = data.encryMsg.merchantNo;
+        var merOrderNo = data.encryMsg.merOrderNo;
+        var jsonEnc = data.encryMsg.jsonEnc;
+        var keyEnc = data.encryMsg.keyEnc;
+        var sign = data.encryMsg.sign;
+        $('.form-merchant-no').val(merchantNo);
+        $('.form-mer-order-no').val(merOrderNo);
+        $('.form-json-enc').val(jsonEnc);
+        $('.form-key-enc').val(keyEnc);
+        $('.form-sign').val(sign);
+        $('.form-post').attr('action',url).submit();
     }
 };

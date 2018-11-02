@@ -13,9 +13,19 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
+
     @RequestMapping("/cg1044/view")
     public String openCard(){
         return "openCard";
+    }
+
+    @RequestMapping("/cg1045/view")
+    public String rechargePaid(){
+        return "rechargePaid";
     }
 
     @RequestMapping("/cg1056/view")

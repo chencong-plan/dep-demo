@@ -3,9 +3,7 @@ package com.jytpay.depdemo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.jytpay.depdemo.Util.DateTimeUtils;
 import com.jytpay.depdemo.Util.GenerateSequenceUtil;
-import com.jytpay.depdemo.Util.MockClient;
-import com.jytpay.depdemo.Util.sign.DESHelper;
-import com.jytpay.depdemo.service.OpenAndBindCardService;
+import com.jytpay.depdemo.service.ReplaceCardService;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 import com.jytpay.depdemo.vo.BaseReqHeadVo;
 import org.slf4j.Logger;
@@ -16,10 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class OpenAndBindCardServiceImpl implements OpenAndBindCardService {
+public class ReplaceCardServiceImpl implements ReplaceCardService {
 
-    private static final Logger log = LoggerFactory.getLogger(OpenAndBindCardServiceImpl.class);
-
+    private static final Logger log = LoggerFactory.getLogger(ReplaceCardServiceImpl.class);
     @Override
     public BaseJsonReqVo getReqJson(Map<String, String> params) {
         BaseJsonReqVo baseJsonReqVo = new BaseJsonReqVo();
@@ -34,17 +31,16 @@ public class OpenAndBindCardServiceImpl implements OpenAndBindCardService {
         headVo.setVersion("1.0.0");
 
         Map<String, String> body = new HashMap<>();
+        body.put("custNo", params.get("custNo"));
         body.put("callbackUrl", params.get("callbackUrl"));
         body.put("responsePath", params.get("responsePath"));
-        body.put("registerPhone", params.get("registerPhone"));
-        body.put("custType", params.get("custType"));
 
         baseJsonReqVo.setHead(headVo);
         baseJsonReqVo.setBody(body);
 
         String jsonReq = JSON.toJSONString(baseJsonReqVo, true);
-        log.info("开户绑卡订单号:{},请求信息:{}", merOrderNo, jsonReq);
+        log.info("充值订单号:{},请求信息:{}", merOrderNo, jsonReq);
         return baseJsonReqVo;
-    }
 
+    }
 }
