@@ -34,7 +34,7 @@ public class RechargePaidController {
             @RequestParam(value = "incomeAmt", required = false) String incomeAmt,
             @RequestParam(value = "callbackUrl", required = false) String callbackUrl,
             @RequestParam(value = "responsePath", required = false) String responsePath) {
-        Result result = new Result<>();
+        Result result = new Result();
         if (StringUtils.isBlank(merchantNo) ||
                 StringUtils.isBlank(acctNo) ||
                 StringUtils.isBlank(amount) ||

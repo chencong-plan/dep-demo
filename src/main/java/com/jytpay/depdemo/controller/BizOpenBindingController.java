@@ -49,7 +49,7 @@ public class BizOpenBindingController {
             @RequestParam(value = "registerPhone", required = false) String registerPhone,
             @RequestParam(value = "custType", required = false) String custType,
             @RequestParam(value = "merchantNo", required = false) String merchantNo) {
-        Result result = new Result<>();
+        Result result = new Result();
         if (StringUtils.isBlank(requestUrl) ||
                 StringUtils.isBlank(callbackUrl) ||
                 StringUtils.isBlank(responsePath) ||

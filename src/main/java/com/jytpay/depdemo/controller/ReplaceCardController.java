@@ -18,8 +18,17 @@ import java.util.Map;
 public class ReplaceCardController {
 
 
+    private final ReplaceCardService replaceCardService;
+
+    /**
+     * 建议去掉属性注入，使用构造注入
+     *
+     * @param replaceCardService 换绑服务
+     */
     @Autowired
-    private ReplaceCardService replaceCardService;
+    public ReplaceCardController(ReplaceCardService replaceCardService) {
+        this.replaceCardService = replaceCardService;
+    }
 
     @RequestMapping("/cg1056")
     @ResponseBody
@@ -28,7 +37,7 @@ public class ReplaceCardController {
             @RequestParam(value = "custNo", required = false) String custNo,
             @RequestParam(value = "callbackUrl", required = false) String callbackUrl,
             @RequestParam(value = "responsePath", required = false) String responsePath) {
-        Result result = new Result<>();
+        Result result = new Result();
         if (StringUtils.isBlank(merchantNo) ||
                 StringUtils.isBlank(custNo) ||
                 StringUtils.isBlank(callbackUrl) ||

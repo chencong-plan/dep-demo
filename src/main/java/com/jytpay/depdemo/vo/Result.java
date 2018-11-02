@@ -1,9 +1,9 @@
 package com.jytpay.depdemo.vo;
 
-public class Result<T> {
+public class Result {
     private String status;
-    private T reqMsg;
-    private T encryMsg;
+    private Object reqMsg;
+    private Object encryMsg;
 
     public String getStatus() {
         return status;
@@ -13,19 +13,19 @@ public class Result<T> {
         this.status = status;
     }
 
-    public T getReqMsg() {
+    public Object getReqMsg() {
         return reqMsg;
     }
 
-    public void setReqMsg(T reqMsg) {
+    public void setReqMsg(Object reqMsg) {
         this.reqMsg = reqMsg;
     }
 
-    public T getEncryMsg() {
+    public Object getEncryMsg() {
         return encryMsg;
     }
 
-    public void setEncryMsg(T encryMsg) {
+    public void setEncryMsg(Object encryMsg) {
         this.encryMsg = encryMsg;
     }
 }

@@ -27,7 +27,7 @@ public class UnbindCardController {
             @RequestParam(value = "custNo", required = false) String custNo,
             @RequestParam(value = "callbackUrl", required = false) String callbackUrl,
             @RequestParam(value = "responsePath", required = false) String responsePath) {
-        Result result = new Result<>();
+        Result result = new Result();
         if (StringUtils.isBlank(merchantNo) ||
                 StringUtils.isBlank(custNo) ||
                 StringUtils.isBlank(callbackUrl) ||
