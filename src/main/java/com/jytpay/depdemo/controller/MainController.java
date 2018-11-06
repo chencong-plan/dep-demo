@@ -54,6 +54,20 @@ public class MainController {
         return "updateRegisterPhone";
     }
 
+    @RequestMapping("/cg1046/view")
+    public String withdrawT0(){
+        return  "withdrawT0";
+    }
+
+    @RequestMapping("/cg1047/view")
+    public String withdrawT1(){
+        return  "withdrawT1";
+    }
+
+    @RequestMapping("/cg1053/view")
+    public String paymentTransfer(){
+        return "paymentTransfer";
+    }
     /*
     *
     * 实时模式
