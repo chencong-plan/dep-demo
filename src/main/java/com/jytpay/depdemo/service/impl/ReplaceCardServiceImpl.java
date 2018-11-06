@@ -39,7 +39,7 @@ public class ReplaceCardServiceImpl implements ReplaceCardService {
         baseJsonReqVo.setBody(body);
 
         String jsonReq = JSON.toJSONString(baseJsonReqVo, true);
-        log.info("充值订单号:{},请求信息:{}", merOrderNo, jsonReq);
+        log.info("换绑订单号:{},请求信息:{}", merOrderNo, jsonReq);
         return baseJsonReqVo;
 
     }

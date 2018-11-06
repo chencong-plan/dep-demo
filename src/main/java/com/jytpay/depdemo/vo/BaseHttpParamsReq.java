@@ -1,8 +1,8 @@
 package com.jytpay.depdemo.vo;
 
+import java.io.Serializable;
 
-public class BaseHttpParamsRes {
-
+public class BaseHttpParamsReq implements Serializable {
 
     private String merchantNo;
 

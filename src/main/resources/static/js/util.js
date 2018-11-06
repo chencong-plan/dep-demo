@@ -121,3 +121,22 @@ var util = {
         $('.form-post').attr('action',url).submit();
     }
 };
+/**
+ * 序列化表单成json
+ */
+$.fn.serializeJson = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};

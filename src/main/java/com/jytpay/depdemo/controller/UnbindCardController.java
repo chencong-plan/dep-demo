@@ -43,7 +43,6 @@ public class UnbindCardController {
         params.put("responsePath", responsePath);
         params.put("tradeCode", "CG1057");
         BaseJsonReqVo baseJsonReqVo = unBindCardService.getReqJson(params);
-        //TODO 在这里将组装好的请求bean进行加密
         Map<String, String> encryReqJson = EncryJsonUtil.encryReqJson(baseJsonReqVo);
         result.setStatus("000");
         result.setReqMsg(baseJsonReqVo);

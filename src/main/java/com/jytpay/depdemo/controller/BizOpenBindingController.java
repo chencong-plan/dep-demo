@@ -1,13 +1,9 @@
 package com.jytpay.depdemo.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.jytpay.depdemo.Util.CommonConvert;
 import com.jytpay.depdemo.Util.EncryJsonUtil;
 import com.jytpay.depdemo.Util.MockClient;
-import com.jytpay.depdemo.Util.StringUtil;
 import com.jytpay.depdemo.Util.sign.CryptoUtils;
 import com.jytpay.depdemo.service.OpenAndBindCardService;
-import com.jytpay.depdemo.vo.BaseHttpParamsRes;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 import com.jytpay.depdemo.vo.Result;
 import org.apache.commons.lang3.StringUtils;
@@ -69,7 +65,6 @@ public class BizOpenBindingController {
         params.put("tradeCode", "CG1044");
         params.put("merchantNo", merchantNo);
         BaseJsonReqVo baseJsonReqVo = openAndBindCardService.getReqJson(params);
-        //TODO 在这里将组装好的请求bean进行加密
         Map<String, String> encryReqJson = EncryJsonUtil.encryReqJson(baseJsonReqVo);
         result.setStatus("000");
         result.setReqMsg(baseJsonReqVo);
@@ -79,6 +74,7 @@ public class BizOpenBindingController {
 
 
     @RequestMapping("/cg1044/callback")
+    @ResponseBody
     public Result openBindingCall(HttpServletRequest request) {
         Result result = new Result();
         result.setStatus("000");

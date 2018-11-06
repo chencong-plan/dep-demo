@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <title>查询客户信息(cg2006)</title>
+</head>
+<body>
+<div class="container">
+    <table class="table  text-center" width="50%">
+        <tr>
+            <td colspan="4">
+                <strong>查询客户信息(cg2006)</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>请求地址</td>
+            <td colspan="2">
+                <input class="open-request-host form-control" placeholder="请求地址">
+            </td>
+            <td>
+                <span class="open-request-url">/services/cgbiz/cg2006</span>
+            </td>
+        </tr>
+        <tr>
+            <td>商户号</td>
+            <td colspan="2">
+                <input class="open-merchant-no form-control" placeholder="商户号">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>证件号(certNo)</td>
+            <td colspan="2">
+                <input class="certNo form-control" placeholder="证件号(certNo)">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td class="4">
+                <button class="btn-submit btn btn-info">提交</button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td><strong>请求报文</strong></td>
+            <td colspan="3">
+                <pre class="req-msg">
+
+
+
+
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>响应报文</strong></td>
+            <td colspan="3">
+                <pre class="resp-msg">
+
+                    通过callbackUrl将响应信息写入固定json ,时刻请求
+
+
+                </pre>
+            </td>
+        </tr>
+    </table>
+    <div class="request-form hidden"></div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        //从localStorage中获取数据
+        $('.open-request-host').val(localStorage.getItem('open-request-host'));
+        $('.open-merchant-no').val(localStorage.getItem('open-merchant-no'));
+        $('.certNo').val(localStorage.getItem('certNo'));
+
+        //提交开户绑卡信息
+        $('.btn-submit').click(function () {
+            var url = $('.open-request-host').val() + $('.open-request-url').text();
+            var params = {
+                requestUrl: url,
+                merchantNo: $('.open-merchant-no').val(),
+                certNo: $('.certNo').val()
+            };
+            console.log(params);
+            //将数据存储在localStorage
+            localStorage.setItem("open-request-host",$('.open-request-host').val());
+            localStorage.setItem("open-merchant-no",params.merchantNo);
+            localStorage.setItem("certNo",params.certNo);
+            $.ajax({
+                type: 'POST',
+                url: '/cg2006',
+                data: params,
+                success: function (result) {
+                    console.log(result);
+                    var reqMsg = result.reqMsg;
+                    $('.req-msg').text(JSON.stringify(reqMsg, null, '\t'));
+                    if (result.status === '000') {
+                        //显示响应信息
+                        var respMsg = result.encryMsg;
+                        $('.resp-msg').text(JSON.stringify(JSON.parse(respMsg),null,'\t'));
+                        // //跳转到开户绑卡页面
+                        // var element = $('.request-form');
+                        // util.doPost(element, result, params.requestUrl);
+                        // console.log($('.form-post').serialize());
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+    });
+</script>
+</html>
