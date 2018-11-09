@@ -48,7 +48,6 @@ public class MainController {
         return "resetPayPwd";
     }
 
-
     @RequestMapping("/cg1049/view")
     public String updateRegisterPhone(){
         return "updateRegisterPhone";
