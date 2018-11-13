@@ -5,14 +5,14 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/util.js}"></script>
-    <title>T0提现(cg1046)</title>
+    <title>标的购买(cg1052)</title>
 </head>
 <body>
 <div class="container">
     <table class="table  text-center" width="50%">
         <tr>
             <td colspan="4">
-                <strong>T0提现(cg1046)</strong>
+                <strong>标的购买(cg1052)</strong>
             </td>
         </tr>
         <tr>
@@ -21,7 +21,7 @@
                 <input class="open-request-host form-control" placeholder="请求地址">
             </td>
             <td>
-                <span class="open-request-url">/dep-page-service/cg1046</span>
+                <span class="open-request-url">/dep-page-service/cg1052</span>
             </td>
         </tr>
         <tr>
@@ -39,16 +39,16 @@
             <td><span></span></td>
         </tr>
         <tr>
-            <td>提现金额(amount)</td>
+            <td>标的编号(subjectNo)</td>
             <td colspan="2">
-                <input class="amount form-control" placeholder="提现金额(amount)">
+                <input class="subjectNo form-control" placeholder="标的编号(subjectNo)">
             </td>
             <td><span></span></td>
         </tr>
         <tr>
-            <td>收益金额(incomeAmt)</td>
+            <td>购买金额(amount)</td>
             <td colspan="2">
-                <input class="incomeAmt form-control" placeholder="收益金额(incomeAmt)">
+                <input class="amount form-control" placeholder="购买金额(amount)">
             </td>
             <td><span></span></td>
         </tr>
@@ -108,6 +108,7 @@
         $('.open-merchant-no').val(localStorage.getItem('open-merchant-no'));
         $('.open-response-path').val(localStorage.getItem('open-response-path'));
         $('.acctNo').val(localStorage.getItem('acctNo'));
+        $('.subjectNo').val(localStorage.getItem('subjectNo'));
 
         //提交开户绑卡信息
         $('.btn-openbind').click(function () {
@@ -116,8 +117,8 @@
                 requestUrl: url,
                 merchantNo: $('.open-merchant-no').val(),
                 acctNo: $('.acctNo').val(),
+                subjectNo: $('.subjectNo').val(),
                 amount: $('.amount').val(),
-                incomeAmt: $('.incomeAmt').val(),
                 callbackUrl: $('.open-call-back-url').val(),
                 responsePath: $('.open-response-path').val(),
             };
@@ -127,15 +128,15 @@
             localStorage.setItem("open-merchant-no",params.merchantNo);
             localStorage.setItem("open-response-path",params.responsePath);
             localStorage.setItem("acctNo",params.acctNo);
+            localStorage.setItem("subjectNo",params.subjectNo);
             $.ajax({
                 type: 'POST',
-                url: '/cg1046',
+                url: '/cg1052',
                 data: params,
                 success: function (result) {
                     var reqMsg = result.reqMsg;
                     $('.req-msg').text(JSON.stringify(reqMsg, null, '\t'));
                     if (result.status === '000') {
-                        //跳转到开户绑卡页面
                         var element = $('.request-form');
                         util.doPost(element, result, params.requestUrl);
                         // console.log($('.form-post').serialize());

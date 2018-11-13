@@ -3,6 +3,9 @@ package com.jytpay.depdemo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author chencong
+ */
 @Controller
 public class MainController {
 
@@ -67,7 +70,12 @@ public class MainController {
     public String paymentTransfer(){
         return "paymentTransfer";
     }
-    /*
+
+    @RequestMapping("/cg1052/view")
+    public String subjectBuy(){
+        return "subjectBuy";
+    }
+    /**
     *
     * 实时模式
     * cg2006——查询客户信息

@@ -17,6 +17,8 @@ import java.util.Map;
 public class WithdrawServiceImpl implements WithdrawService {
 
     private static final Logger log = LoggerFactory.getLogger(WithdrawServiceImpl.class);
+
+
     @Override
     public BaseJsonReqVo getReqJsonT0(Map<String, String> params) {
         BaseJsonReqVo baseJsonReqVo = new BaseJsonReqVo();
