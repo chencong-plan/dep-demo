@@ -1,5 +1,6 @@
 package com.jytpay.depdemo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jytpay.depdemo.Util.EncryJsonUtil;
 import com.jytpay.depdemo.Util.MockClient;
 import com.jytpay.depdemo.Util.sign.CryptoUtils;
@@ -79,13 +80,14 @@ public class BizOpenBindingController {
         Result result = new Result();
         result.setStatus("000");
         String json = decrytMsg(request);
-        log.info(json);
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        log.info("回调响应信息:{}",JSONObject.toJSONString(jsonObject, true));
         return result;
     }
 
     private String decrytMsg(HttpServletRequest request) {
         String merchantNo = request.getParameter("merchantNo");
-        String merOrderNo =request.getParameter("merOrderNo");
+        String merOrderNo = request.getParameter("merOrderNo");
         String keyEnc = request.getParameter("keyEnc");
         String jsonEnc = request.getParameter("jsonEnc");
         String sign = request.getParameter("sign");
@@ -94,8 +96,8 @@ public class BizOpenBindingController {
         String json = null;
         try {
             byte[] desKey = mockClient.decryptKey(keyEnc);
-            json = CryptoUtils.desDecryptFromHex(jsonEnc,desKey);
-        }catch (Exception e){
+            json = CryptoUtils.desDecryptFromHex(jsonEnc, desKey);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return json;
