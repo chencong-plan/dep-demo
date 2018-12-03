@@ -1,6 +1,7 @@
 package com.jytpay.depdemo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -74,6 +75,11 @@ public class MainController {
     @RequestMapping("/cg1052/view")
     public String subjectBuy(){
         return "subjectBuy";
+    }
+
+    @GetMapping("/cg1050/view")
+    public String authorization(){
+        return "authorization";
     }
     /**
     *

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <title>页面授权(cg1050)</title>
+</head>
+<body>
+<div class="container">
+    <table class="table  text-center" width="50%">
+        <tr>
+            <td colspan="4">
+                <strong>页面授权(cg1050)</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>请求地址</td>
+            <td colspan="2">
+                <input class="open-request-host form-control" placeholder="请求地址">
+            </td>
+            <td>
+                <span class="open-request-url">/dep-page-service/cg1050</span>
+            </td>
+        </tr>
+        <tr>
+            <td>商户号</td>
+            <td colspan="2">
+                <input class="open-merchant-no form-control" placeholder="商户号">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>客户号(custNo)</td>
+            <td colspan="2">
+                <input class="custNo form-control" placeholder="客户号(custNo)">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>授权类型(authType)</td>
+            <td colspan="2">
+                <!--<input class="authType form-control" placeholder="authType(授权类型)">-->
+                <select class="authType form-control">
+                    <option value="CG1007">CG1007(标的购买)</option>
+                    <option value="CG1010">CG1010(还款转账)</option>
+                    <option value="CG1014">CG1014(购买撤销)</option>
+                    <option value="CG1025">CG1025(代偿转账)</option>
+                    <option value="CG1021">CG1021(商户放款)</option>
+                    <option value="CG1008">CG1008(转账接口)</option>
+                </select>
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>授权结束时间(expiryTime)</td>
+            <td colspan="2">
+                <input class="expiryTime form-control" placeholder="结束时间(expiryTime),yyyMMdd格式">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>授权金额(amount)</td>
+            <td colspan="2">
+                <input class="amount form-control" placeholder="授权金额(amount) 授权业务最大单笔金额">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>回调地址(callbackUrl)</td>
+            <td colspan="2">
+                <input class="open-call-back-url form-control" placeholder="回调地址callbackUrl"
+                       value="http://10.10.10.4:8090/cg1044/callback">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td>跳转地址(responsePath)</td>
+            <td colspan="2">
+                <input class="open-response-path form-control" placeholder="跳转地址responsePath">
+            </td>
+            <td><span></span></td>
+        </tr>
+        <tr>
+            <td class="4">
+                <button class="btn-openbind btn btn-info">提交</button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td><strong>请求报文</strong></td>
+            <td colspan="3">
+                <pre class="req-msg">
+
+
+
+
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>响应报文</strong></td>
+            <td colspan="3">
+                <pre>
+
+                    通过callbackUrl将响应信息写入固定json ,时刻请求
+
+
+                </pre>
+            </td>
+        </tr>
+    </table>
+    <div class="request-form hidden"></div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        //从localStorage中获取数据
+        $('.open-request-host').val(localStorage.getItem('open-request-host'));
+        $('.open-merchant-no').val(localStorage.getItem('open-merchant-no'));
+        $('.open-response-path').val(localStorage.getItem('open-response-path'));
+        $('.custNo').val(localStorage.getItem('custNo'));
+        $('.expiryTime').val(localStorage.getItem('expiryTime'));
+        $('.authType').val(localStorage.getItem('authType'));
+        $('.amount').val(localStorage.getItem('amount'));
+
+        //提交开户绑卡信息
+        $('.btn-openbind').click(function () {
+            var url = $('.open-request-host').val() + $('.open-request-url').text();
+            var params = {
+                requestUrl: url,
+                merchantNo: $('.open-merchant-no').val(),
+                custNo: $('.custNo').val(),
+                authType: $('.authType').val(),
+                expiryTime: $('.expiryTime').val(),
+                amount: $('.amount').val(),
+                callbackUrl: $('.open-call-back-url').val(),
+                responsePath: $('.open-response-path').val(),
+            };
+            console.log(params);
+            //将数据存储在localStorage
+            localStorage.setItem("open-request-host", $('.open-request-host').val());
+            localStorage.setItem("open-merchant-no", params.merchantNo);
+            localStorage.setItem("open-response-path", params.responsePath);
+            localStorage.setItem("custNo", params.custNo);
+            localStorage.setItem("expiryTime", params.expiryTime);
+            localStorage.setItem("authType", params.authType);
+            localStorage.setItem("amount", params.amount);
+            $.ajax({
+                type: 'POST',
+                url: '/cg1050',
+                data: params,
+                success: function (result) {
+                    var reqMsg = result.reqMsg;
+                    $('.req-msg').text(JSON.stringify(reqMsg, null, '\t'));
+                    if (result.status === '000') {
+                        //跳转到开户绑卡页面
+                        var element = $('.request-form');
+                        util.doPost(element, result, params.requestUrl);
+                        // console.log($('.form-post').serialize());
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+    });
+</script>
+</html>
