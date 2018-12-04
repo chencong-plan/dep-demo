@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * 转账接口实现
+ *
  * @author chencong@jytpay.com
  * @since 2018/12/3 15:34
  */
@@ -63,27 +64,27 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public String getRespJson(BaseJsonReqVo baseJsonReqVo, String requestUrl) {
-        BaseHttpParamsReq params  = EncryJsonUtil.encryReqBean(baseJsonReqVo);
+        BaseHttpParamsReq params = EncryJsonUtil.encryReqBean(baseJsonReqVo);
         MockClient mockClient = new MockClient();
         String jsonRes = null;
-        try{
+        try {
             Client client = ClientBuilder.newClient();
             WebTarget target = client.target(requestUrl);
             Response response = target.request().post(Entity.entity(params, MediaType.APPLICATION_JSON_TYPE));
             String result = response.readEntity(String.class);
             //解析报文
-            BaseHttpParamsRes baseHttpParamsRes = JSON.parseObject(result,new TypeReference<BaseHttpParamsRes>(){});
+            BaseHttpParamsRes baseHttpParamsRes = JSON.parseObject(result, new TypeReference<BaseHttpParamsRes>() {
+            });
             byte[] key = mockClient.decryptKey(baseHttpParamsRes.getKeyEnc());
-            jsonRes = mockClient.decrytXml(baseHttpParamsRes.getJsonEnc(),key);
-            if(!mockClient.verifyMsgSign(jsonRes,baseHttpParamsRes.getSign())){
-                log.info("转账验签失败，订单号:{},报文信息:{}",baseHttpParamsRes.getMerOrderNo(),jsonRes);
+            jsonRes = mockClient.decrytXml(baseHttpParamsRes.getJsonEnc(), key);
+            if (!mockClient.verifyMsgSign(jsonRes, baseHttpParamsRes.getSign())) {
+                log.info("转账验签失败，订单号:{},报文信息:{}", baseHttpParamsRes.getMerOrderNo(), jsonRes);
             }
-        }catch (Exception e){
-            log.info("转账请求信息异常:{}",baseJsonReqVo.getHead().getMerOrderNo(),e);
+        } catch (Exception e) {
+            log.info("转账请求信息异常:{}", baseJsonReqVo.getHead().getMerOrderNo(), e);
             e.printStackTrace();
         }
-        log.info("请求地址:{},响应信息:{}",requestUrl,jsonRes);
+        log.info("请求地址:{},响应信息:{}", requestUrl, jsonRes);
         return jsonRes;
     }
-
 }
