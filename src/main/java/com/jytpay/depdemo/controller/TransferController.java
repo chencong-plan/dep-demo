@@ -1,86 +1,68 @@
 package com.jytpay.depdemo.controller;
 
-import com.jytpay.depdemo.Util.EncryJsonUtil;
+import com.jytpay.depdemo.Util.StringUtil;
 import com.jytpay.depdemo.service.TransferService;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
-import com.jytpay.depdemo.vo.Result;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+/**
+ * 实时接口，转账CG1008
+ *
+ * @author chencong@jytpay.com
+ * @since 2018/12/3 15:27
+ */
+@RestController
 public class TransferController {
 
-    private final TransferService transferService;
-
     @Autowired
-    public TransferController(TransferService transferService) {
-        this.transferService = transferService;
-    }
-
+    private TransferService transferService;
 
     /**
-     * 还款转账
+     * 实时模式，转账接口CG1008
      *
-     * @param merchantNo   商户号
-     * @param payerAcctNo  融资人账号号码
-     * @param amount       还款总金额
-     * @param capital      还款本金
-     * @param incomeAmt    商户服务费
-     * @param list         投资人列表(payeeAcctNo投资人账户，amount还款金额)
-     * @param callbackUrl  回调地址
-     * @param responsePath 跳转地址
-     * @return 返回报文
+     * @param merchantNo  商户编号
+     * @param payerAcctNo 转出方账户号码
+     * @param payeeAcctNo 转入方账户号码
+     * @param amount      转账金额
+     * @param payType     转账类型 00 个人-个人 01 个人-商户  02 商户-个人
+     * @param requestUrl  接口请求地址
+     * @return 返回响应报文
      */
-    @RequestMapping("/cg1053")
-    @ResponseBody()
-    public Result paymentTransfer(
+    @PostMapping("/cg1008")
+    public String cg1008(
             @RequestParam(value = "merchantNo", required = false) String merchantNo,
-            @RequestParam(value = "subjectNo", required = false) String subjectNo,
             @RequestParam(value = "payerAcctNo", required = false) String payerAcctNo,
+            @RequestParam(value = "payeeAcctNo", required = false) String payeeAcctNo,
             @RequestParam(value = "amount", required = false) String amount,
-            @RequestParam(value = "capital", required = false) String capital,
-            @RequestParam(value = "incomeAmt", required = false) String incomeAmt,
-            @RequestParam(value = "list", required = false) String list,
-            @RequestParam(value = "callbackUrl", required = false) String callbackUrl,
-            @RequestParam(value = "responsePath", required = false) String responsePath) {
-        Result result = new Result();
-        if (StringUtils.isBlank(merchantNo) ||
-                StringUtils.isBlank(subjectNo) ||
-                StringUtils.isBlank(payerAcctNo) ||
-                StringUtils.isBlank(amount) ||
-                StringUtils.isBlank(capital) ||
-                StringUtils.isBlank(incomeAmt) ||
-                StringUtils.isBlank(list) ||
-                StringUtils.isBlank(callbackUrl) ||
-                StringUtils.isBlank(responsePath)) {
-            result.setStatus("001");
-            result.setReqMsg("请求参数不能为空");
-            return result;
+            @RequestParam(value = "payType", required = false) String payType,
+            @RequestParam(value = "requestUrl",required = false) String requestUrl) {
+        if (StringUtil.isBlank(merchantNo)
+                || StringUtil.isBlank(payerAcctNo)
+                || StringUtil.isBlank(payeeAcctNo)
+                || StringUtil.isBlank(amount)
+                || StringUtil.isBlank(payType)) {
+            return "参数不能为空";
         }
+
         Map<String, String> params = new HashMap<>();
         params.put("merchantNo", merchantNo);
-        params.put("subjectNo", subjectNo);
         params.put("payerAcctNo", payerAcctNo);
-        params.put("amount", amount);
-        params.put("capital", capital);
-        params.put("incomeAmt", incomeAmt);
-        params.put("list", list);
-        params.put("callbackUrl", callbackUrl);
-        params.put("responsePath", responsePath);
-        params.put("tradeCode", "CG1053");
+        params.put("payeeAcctNo", payeeAcctNo);
+        params.put("amount",amount);
+        params.put("payType",payType);
+        params.put("tradeCode", "CG1008");
         BaseJsonReqVo baseJsonReqVo = transferService.getReqJsonPayment(params);
-        Map<String, String> encryReqJson = EncryJsonUtil.encryReqJson(baseJsonReqVo);
-        result.setStatus("000");
-        result.setReqMsg(baseJsonReqVo);
-        result.setEncryMsg(encryReqJson);
-        return result;
+        String response = transferService.getRespJson(baseJsonReqVo, requestUrl);
+//        result.setStatus("000");
+//        result.setReqMsg(baseJsonReqVo);
+//        result.setEncryMsg(response);
+        return response;
     }
 
 }
