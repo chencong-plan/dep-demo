@@ -53,6 +53,7 @@ public class TransferServiceImpl implements TransferService {
         body.put("payeeAcctNo", params.get("payeeAcctNo"));
         body.put("amount", params.get("amount"));
         body.put("payType", params.get("payType"));
+        body.put("remark",params.get("remark"));
 
         baseJsonReqVo.setHead(headVo);
         baseJsonReqVo.setBody(body);

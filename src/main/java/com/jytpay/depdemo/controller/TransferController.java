@@ -41,7 +41,8 @@ public class TransferController {
             @RequestParam(value = "payeeAcctNo", required = false) String payeeAcctNo,
             @RequestParam(value = "amount", required = false) String amount,
             @RequestParam(value = "payType", required = false) String payType,
-            @RequestParam(value = "requestUrl",required = false) String requestUrl) {
+            @RequestParam(value = "requestUrl", required = false) String requestUrl,
+            @RequestParam(value = "remark", required = false) String remark) {
         if (StringUtil.isBlank(merchantNo)
                 || StringUtil.isBlank(payerAcctNo)
                 || StringUtil.isBlank(payeeAcctNo)
@@ -54,14 +55,12 @@ public class TransferController {
         params.put("merchantNo", merchantNo);
         params.put("payerAcctNo", payerAcctNo);
         params.put("payeeAcctNo", payeeAcctNo);
-        params.put("amount",amount);
-        params.put("payType",payType);
+        params.put("amount", amount);
+        params.put("payType", payType);
+        params.put("remark",remark);
         params.put("tradeCode", "CG1008");
         BaseJsonReqVo baseJsonReqVo = transferService.getReqJsonPayment(params);
         String response = transferService.getRespJson(baseJsonReqVo, requestUrl);
-//        result.setStatus("000");
-//        result.setReqMsg(baseJsonReqVo);
-//        result.setEncryMsg(response);
         return response;
     }
 
