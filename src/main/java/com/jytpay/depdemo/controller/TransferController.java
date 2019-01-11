@@ -1,6 +1,6 @@
 package com.jytpay.depdemo.controller;
 
-import com.jytpay.depdemo.Util.StringUtil;
+import com.jytpay.depdemo.util.StringUtil;
 import com.jytpay.depdemo.service.TransferService;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.jytpay.depdemo.controller;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +81,11 @@ public class MainController {
     @GetMapping("/cg1050/view")
     public String authorization(){
         return "authorization";
+    }
+
+    @GetMapping("/login")
+    public String testJson(){
+        return "testJson";
     }
     /**
     *

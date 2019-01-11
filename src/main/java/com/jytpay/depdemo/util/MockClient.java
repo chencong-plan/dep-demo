@@ -1,7 +1,7 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
-import com.jytpay.depdemo.Util.sign.CryptoUtils;
-import com.jytpay.depdemo.Util.sign.RSAHelper;
+import com.jytpay.depdemo.util.sign.CryptoUtils;
+import com.jytpay.depdemo.util.sign.RSAHelper;
 
 import java.io.UnsupportedEncodingException;
 

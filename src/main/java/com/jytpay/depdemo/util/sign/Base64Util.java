@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util.sign;
+package com.jytpay.depdemo.util.sign;
 
 import org.apache.commons.codec.binary.Base64;
 /**

@@ -1,7 +1,7 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
 import com.alibaba.fastjson.JSON;
-import com.jytpay.depdemo.Util.sign.DESHelper;
+import com.jytpay.depdemo.util.sign.DESHelper;
 import com.jytpay.depdemo.vo.BaseHttpParamsReq;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 

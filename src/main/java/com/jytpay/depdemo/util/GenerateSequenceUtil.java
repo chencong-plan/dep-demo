@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

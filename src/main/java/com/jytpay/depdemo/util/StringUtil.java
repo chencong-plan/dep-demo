@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
 import java.math.BigDecimal;
 import java.util.Random;

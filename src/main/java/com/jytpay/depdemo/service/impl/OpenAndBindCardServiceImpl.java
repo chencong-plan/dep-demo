@@ -1,10 +1,8 @@
 package com.jytpay.depdemo.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.jytpay.depdemo.Util.DateTimeUtils;
-import com.jytpay.depdemo.Util.GenerateSequenceUtil;
-import com.jytpay.depdemo.Util.MockClient;
-import com.jytpay.depdemo.Util.sign.DESHelper;
+import com.jytpay.depdemo.util.DateTimeUtils;
+import com.jytpay.depdemo.util.GenerateSequenceUtil;
 import com.jytpay.depdemo.service.OpenAndBindCardService;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 import com.jytpay.depdemo.vo.BaseReqHeadVo;

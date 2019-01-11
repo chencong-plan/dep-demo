@@ -16,4 +16,6 @@ import java.util.Map;
 public interface AuthorizationService {
 
     BaseJsonReqVo getReqJsonResetPayPwd(Map<String, String> params);
+
+    BaseJsonReqVo getReqJson(Map<String, String> params);
 }

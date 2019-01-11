@@ -2,10 +2,10 @@ package com.jytpay.depdemo.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.jytpay.depdemo.Util.DateTimeUtils;
-import com.jytpay.depdemo.Util.EncryJsonUtil;
-import com.jytpay.depdemo.Util.GenerateSequenceUtil;
-import com.jytpay.depdemo.Util.MockClient;
+import com.jytpay.depdemo.util.DateTimeUtils;
+import com.jytpay.depdemo.util.EncryJsonUtil;
+import com.jytpay.depdemo.util.GenerateSequenceUtil;
+import com.jytpay.depdemo.util.MockClient;
 import com.jytpay.depdemo.service.TransferService;
 import com.jytpay.depdemo.vo.BaseHttpParamsReq;
 import com.jytpay.depdemo.vo.BaseHttpParamsRes;

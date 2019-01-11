@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;

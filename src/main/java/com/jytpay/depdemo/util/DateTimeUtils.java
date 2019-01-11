@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util;
+package com.jytpay.depdemo.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

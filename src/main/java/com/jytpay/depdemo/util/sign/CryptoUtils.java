@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util.sign;
+package com.jytpay.depdemo.util.sign;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -14,7 +14,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
-import com.jytpay.depdemo.Util.DateTimeUtils;
+import com.jytpay.depdemo.util.DateTimeUtils;
 import org.apache.commons.codec.binary.Base64;
 
 

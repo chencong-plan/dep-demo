@@ -1,4 +1,4 @@
-package com.jytpay.depdemo.Util.sign;
+package com.jytpay.depdemo.util.sign;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 

@@ -1,6 +1,6 @@
 package com.jytpay.depdemo.controller;
 
-import com.jytpay.depdemo.Util.EncryJsonUtil;
+import com.jytpay.depdemo.util.EncryJsonUtil;
 import com.jytpay.depdemo.service.PayPwdService;
 import com.jytpay.depdemo.vo.BaseJsonReqVo;
 import com.jytpay.depdemo.vo.Result;

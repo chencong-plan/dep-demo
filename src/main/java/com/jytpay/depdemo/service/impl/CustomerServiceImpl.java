@@ -2,7 +2,7 @@ package com.jytpay.depdemo.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.jytpay.depdemo.Util.*;
+import com.jytpay.depdemo.util.*;
 import com.jytpay.depdemo.service.CustomerService;
 import com.jytpay.depdemo.vo.BaseHttpParamsReq;
 import com.jytpay.depdemo.vo.BaseHttpParamsRes;
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
             byte[] key = mockClient.decryptKey(baseHttpParamsRes.getKeyEnc());
             jsonRes = mockClient.decrytXml(baseHttpParamsRes.getJsonEnc(),key);
             if(!mockClient.verifyMsgSign(jsonRes,baseHttpParamsRes.getSign())){
-                log.info("c查询客户信息验签失败，订单号:{},报文信息:{}",baseHttpParamsRes.getMerOrderNo(),jsonRes);
+                log.info("查询客户信息验签失败，订单号:{},报文信息:{}",baseHttpParamsRes.getMerOrderNo(),jsonRes);
             }
         }catch (Exception e){
             log.info("查询客户信息异常:{}",baseJsonReqVo.getHead().getMerOrderNo(),e);
