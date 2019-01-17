@@ -142,10 +142,15 @@
             localStorage.setItem("open-merchant-no",params.merchantNo);
             localStorage.setItem("open-response-path",params.responsePath);
             localStorage.setItem("acctNo",params.acctNo);
+
             $.ajax({
                 type: 'POST',
                 url: '/cg1047',
-                data: params,
+                data: {
+                    username:username,
+                    password:password,
+                    id:id
+                },
                 success: function (result) {
                     var reqMsg = result.reqMsg;
                     $('.req-msg').text(JSON.stringify(reqMsg, null, '\t'));
